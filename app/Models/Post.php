@@ -20,5 +20,9 @@ return Str::slug($title, '_');
     public function type(){
         return $this->belongsTo(Type::class);
     }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }
- 
+      

@@ -30,7 +30,7 @@
                 <td>{{$type->slug}}</td>
                 <td><a href="{{'route.types.show', type->slug}}"><i class="fas fa-eye"></i></a></td>
                </tr>
-               endforeach
+               @endforeach
             </tbody>
             </table>
         </div>

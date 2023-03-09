@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\PostController as PostController;
 
 use App\Http\Controllers\Admin\TypeController as TypeController;
 
+use App\Http\Controllers\Admin\TagController as TagController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +41,7 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('posts', PostController::class)->parameters(['posts'=> 'post:slug']);
     Route::resource('types', TypeController::class)->parameters(['types'=>'type:slug']);
+    Route::resource('tags', TagController::class)->parameters(['tags'=>'tag:slug']);
 });
 
  

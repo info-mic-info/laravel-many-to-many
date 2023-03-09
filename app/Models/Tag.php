@@ -16,4 +16,9 @@ class Tag extends Model
     public static function generateSlug($name){
         return Str::slug($name, '_');
             }
+
+            public static function post(){
+                return $this->belongsToMany(Post::class);
+            }
+
 }
