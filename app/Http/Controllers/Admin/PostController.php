@@ -8,6 +8,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\Type;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -30,8 +31,9 @@ class PostController extends Controller
     public function create()
     {
 
-$types = Type::all();
-     return view ('admin.posts.create', compact('types'));
+    $types = Type::all();
+    $tags= Tag::all();
+     return view ('admin.posts.create', compact('types', 'tags'));
     }
 
     /**
@@ -54,8 +56,13 @@ $types = Type::all();
         $form_data['slug'] = $slug;
 
         $newPost = new Post();
+
         $newPost->fill($form_data);
         $newPost->save();
+
+        if($request->has('tag')){
+            $newPost->tags()->attach($request->tags);
+        }
 
         return redirect()->route('admin.posts.index')->with('message', 'Post creato correttamente');
     }
@@ -80,7 +87,8 @@ $types = Type::all();
     public function edit(Post $post)
     {
         $types = Type::all();
-      return view ('admin.posts.edit', compact('post','types'));
+        $tags = Tag::all();
+      return view ('admin.posts.edit', compact('post','types', 'tags'));
     }
 
     /**
@@ -108,7 +116,14 @@ $types = Type::all();
 
         $post->update($form_data);
 
-        return redirect()->route('admin.posts.index')->with ('message', $post->title.' èstato correttamente aggiornato');
+        if($request->has('tags')){
+
+            $post->tags()->sync($request->tags);
+
+           
+        }
+
+        return redirect()->route('admin.posts.index')->with ('message', $post->title.' è stato correttamente aggiornato');
     }
 
     /**
@@ -119,6 +134,9 @@ $types = Type::all();
      */
     public function destroy(Post $post)
     {
+
+       $post->tags()->sync([]);
+
        $post->delete();
        return redirect()->route('admin.posts.index')->with('message', 'Post cancellato correttamente');
     }

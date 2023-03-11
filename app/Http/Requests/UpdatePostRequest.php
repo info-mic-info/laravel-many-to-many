@@ -29,6 +29,7 @@ class UpdatePostRequest extends FormRequest
             'content' => ['nullable'],
             'author' => ['nullable'],
             'type_id' => ['nullable', 'exists:types,id'],
+            'tags' => ['exists:tags,id']
         ];
     }
 
@@ -44,6 +45,7 @@ public function messages()
         'title.unique' => 'é presente un post con questo titolo',
         'title.max' =>  'Il post non può essere lungo più di :max caratteri',
         'type_id.exists' =>  'Devi selezionare un tipo valido',
+        'tags.exists' =>  'Il tag selezionato non è valido',
     ];
 }
     

@@ -40,6 +40,25 @@
                  @enderror
                </div>
 
+<div class="form-group">
+    <div class="control-label">Tags</div>
+@foreach($tags as $tag)
+<div class="form-check @error('tags') is-invalid @enderror">
+<input class="form-check-input" type="checkbox" value="{{$tag->id}}" name="tag[]">
+<label class="form-check-label">{{$tag->name}}</label>
+</div>
+@endforeach
+<input type="checkbox" name="tags[]" value="18">
+
+@error('tags')
+<div class="invalid-feedback">{{$message}}</div>
+@enderror
+</div>
+
+
+
+
+
                <div class="form-group">
                  <label class="control-label">
                     Contenuto

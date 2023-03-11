@@ -39,6 +39,36 @@
                 </select>
                </div>
 
+
+               <div class="form-group">
+    <div class="control-label">Tags</div>
+@foreach($tags as $tag)
+<div class="form-check @error('tags') is-invalid @enderror">
+
+@if($errors->any())
+<input type="checkbox" value="{{$tag->id}}" name="tag[]" class="form-check-input" {{ in_array($tag->id, old('tags', [])) ? 'checked' : ''}}>
+<label class="form-check-label">{{$tag->name}}</label>
+
+@else
+
+<input class="form-check-input" type="checkbox" value="{{$tag->id}}" name="tag[]" {{$post->tags->contains($tag) ? 'checked' : ''}}>
+<label class="form-check-label">{{$tag->name}}</label> 
+
+@endif
+ 
+
+
+
+
+</div>
+@endforeach
+
+
+@error('tags')
+<div class="invalid-feedback">{{$message}}</div>
+@enderror
+</div>
+
                <div class="form-group">
                  <label class="control-label"> 
                     Contenuto
